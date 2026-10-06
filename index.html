@@ -1,0 +1,541 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="Vivek Mane, AI/ML engineer in Pune. GenAI, RAG and multimodal systems for finance and healthcare.">
+<title>Vivek Mane Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap">
+<style>
+/* Layout: single column editorial portfolio. Sticky nav, two-column hero (thesis + latest build card), then work, principles, experience, skills, resume, contact. Monochrome with one blue accent. */
+:root{
+  --bg:#fafafb;
+  --surface:#ffffff;
+  --fg:#0e1015;
+  --muted:#565b66;
+  --line:#e4e6eb;
+  --accent:#2447d6;
+  --accent-soft:#e8edff;
+  --ink-btn:#0e1015;
+  --ink-btn-fg:#fafafb;
+  --display:'Playfair Display',Georgia,'Times New Roman',serif;
+  --sans:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,'SFMono-Regular',Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0c0d10;--surface:#14161b;--fg:#f0f1f3;--muted:#9aa0ac;--line:#252831;--accent:#8ba3ff;--accent-soft:#1a2142;--ink-btn:#f0f1f3;--ink-btn-fg:#0c0d10;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0c0d10;--surface:#14161b;--fg:#f0f1f3;--muted:#9aa0ac;--line:#252831;--accent:#8ba3ff;--accent-soft:#1a2142;--ink-btn:#f0f1f3;--ink-btn-fg:#0c0d10;color-scheme:dark}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:84px}
+body{background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:16px;line-height:1.6;padding-inline:20px;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+.wrap{max-width:1120px;margin-inline:auto}
+h1,h2,h3,h4{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.1;font-weight:700}
+p{margin:0}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+
+/* nav */
+header.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);margin-inline:-20px;padding-inline:20px}
+.nav-in{max-width:1120px;margin-inline:auto;display:flex;align-items:center;justify-content:space-between;gap:16px;height:68px}
+.logo{font-family:var(--display);font-weight:700;font-size:24px;text-decoration:none;letter-spacing:.01em}
+.links{display:flex;gap:28px;align-items:center}
+.links a{text-decoration:none;color:var(--muted);font-size:15px;font-weight:500}
+.links a:hover{color:var(--fg)}
+.nav-r{display:flex;gap:10px;align-items:center}
+.icon-btn{width:40px;height:40px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--fg);cursor:pointer;display:grid;place-items:center;font-size:17px}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:12px 22px;border-radius:10px;font-weight:600;font-size:15px;text-decoration:none;border:1px solid var(--ink-btn);background:var(--ink-btn);color:var(--ink-btn-fg);cursor:pointer;font-family:var(--sans)}
+.btn.ghost{background:var(--surface);color:var(--fg);border-color:var(--line)}
+.btn.sm{padding:9px 16px;font-size:14px}
+
+/* hero */
+.hero{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:56px;padding-block:72px 64px;align-items:start}
+.hero h1{font-size:clamp(40px,6.2vw,76px);letter-spacing:-.01em;margin-block:22px}
+.lede{font-size:clamp(18px,2vw,22px);color:var(--muted);max-width:34em;line-height:1.55}
+.proof{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border:1px solid var(--line);border-radius:12px;background:var(--surface);margin-top:40px;overflow:hidden}
+.proof div{padding:20px 22px;border-left:1px solid var(--line)}
+.proof div:first-child{border-left:0}
+.proof strong{display:block;font-size:15px;margin-bottom:6px}
+.proof span{color:var(--muted);font-size:15px;line-height:1.5}
+.cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:32px}
+.now{border:1px solid var(--line);border-radius:14px;background:var(--surface);overflow:hidden}
+.now-top{padding:22px;border-bottom:1px solid var(--line)}
+.now h3{font-size:26px;margin:8px 0 10px}
+.now p{color:var(--muted);font-size:15px}
+.pipeline{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.chip{font-family:var(--mono);font-size:12px;padding:5px 10px;border-radius:999px;background:var(--accent-soft);color:var(--accent)}
+.stat{display:flex;align-items:baseline;gap:12px;padding:20px 22px}
+.stat b{font-family:var(--display);font-size:40px;line-height:1;color:var(--fg);font-variant-numeric:tabular-nums}
+.stat span{color:var(--muted);font-size:14px;line-height:1.4}
+
+/* sections */
+section{padding-block:72px;border-top:1px solid var(--line)}
+.sec-h{display:flex;flex-direction:column;gap:12px;margin-bottom:40px}
+.sec-h h2{font-size:clamp(32px,4.4vw,48px)}
+.sec-h p{color:var(--muted);max-width:38em}
+
+/* work */
+.work{display:grid;gap:20px}
+.card{border:1px solid var(--line);border-radius:14px;background:var(--surface);padding:28px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:32px}
+.card h3{font-size:28px;margin:8px 0 6px}
+.card .tag{color:var(--muted);font-size:15px}
+.card .stack{display:flex;flex-wrap:wrap;gap:6px;margin-top:18px}
+.stack span{font-family:var(--mono);font-size:12px;border:1px solid var(--line);border-radius:6px;padding:3px 8px;color:var(--muted)}
+.card ul{margin:10px 0 0;padding-left:18px}
+.card li{margin-bottom:8px;color:var(--muted)}
+.card li::marker{color:var(--accent)}
+.prob{margin:6px 0 20px;font-size:15px;color:var(--fg)}
+.card .lab{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.badge{display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.1em;background:var(--accent-soft);color:var(--accent);padding:2px 8px;border-radius:999px;margin-left:8px;vertical-align:middle}
+.card a.ext.demo{margin-left:18px}
+.card a.ext{display:inline-block;margin-top:14px;font-size:14px;font-weight:600;color:var(--accent);text-decoration:none}
+
+/* principles */
+.three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.three article{border-top:2px solid var(--fg);padding-top:18px}
+.three h3{font-size:22px;margin-bottom:10px}
+.three p{color:var(--muted);font-size:15px}
+
+/* career */
+.timeline{display:grid;gap:0;border-top:1px solid var(--line)}
+.role{display:grid;grid-template-columns:200px minmax(0,1fr);gap:28px;padding-block:26px;border-bottom:1px solid var(--line)}
+.role .when{font-family:var(--mono);font-size:13px;color:var(--muted);line-height:1.6}
+.role h3{font-size:22px;margin-bottom:4px}
+.role .org{color:var(--accent);font-weight:500;font-size:15px;margin-bottom:10px}
+.role ul{margin:0;padding-left:18px;max-width:46em}
+.role li{color:var(--muted);font-size:15px;margin-bottom:6px}
+.role li::marker{color:var(--accent)}
+.edu{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin-top:40px}
+.edu div{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:22px}
+.edu h4{font-size:19px;margin:6px 0 8px}
+.edu p{color:var(--muted);font-size:15px}
+
+/* skills */
+.skills{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.skill{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:22px}
+.skill h3{font-size:19px;margin-bottom:12px}
+.skill .stack{display:flex;flex-wrap:wrap;gap:6px}
+
+/* resume */
+.resume{border:1px solid var(--line);border-radius:14px;background:var(--surface);padding:24px}
+.resume-top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+pre.txt{margin:0;max-height:340px;overflow:auto;font-family:var(--mono);font-size:13px;line-height:1.7;color:var(--muted);white-space:pre-wrap;border-top:1px solid var(--line);padding-top:16px}
+
+/* footer */
+footer{border-top:1px solid var(--line);padding-block:48px 56px;display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr) minmax(0,1.2fr);gap:32px}
+footer h4{font-size:24px;margin-bottom:8px}
+footer p,footer a,footer li{color:var(--muted);font-size:15px}
+footer ul{list-style:none;padding:0;margin:10px 0 0;display:grid;gap:8px}
+footer a{text-decoration:none}
+footer a:hover{color:var(--fg)}
+.copyrow{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.copyrow code{font-family:var(--mono);font-size:14px;color:var(--fg);user-select:all;overflow-wrap:anywhere}
+.mini{font-family:var(--sans);font-size:12px;border:1px solid var(--line);background:var(--surface);color:var(--fg);border-radius:6px;padding:3px 9px;cursor:pointer}
+.fine{grid-column:1/-1;font-size:13px;color:var(--muted);border-top:1px solid var(--line);padding-top:20px}
+
+@media (max-width:900px){
+  .hero{grid-template-columns:minmax(0,1fr);gap:36px;padding-block:44px}
+  .card{grid-template-columns:minmax(0,1fr);gap:18px}
+  .three,.skills,.edu,footer{grid-template-columns:minmax(0,1fr)}
+  .links{display:none}
+}
+@media (max-width:640px){
+  .proof{grid-template-columns:minmax(0,1fr)}
+  .proof div{border-left:0;border-top:1px solid var(--line)}
+  .proof div:first-child{border-top:0}
+  .role{grid-template-columns:minmax(0,1fr);gap:6px}
+  section{padding-block:52px}
+  .card{padding:22px}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0}
+</style>
+</head>
+<body>
+<header class="nav">
+  <div class="nav-in">
+    <a class="logo" href="#top" aria-label="Vivek Mane, home">VM.</a>
+    <nav class="links" aria-label="Sections">
+      <a href="#work">Work</a>
+      <a href="#how">How I Work</a>
+      <a href="#experience">Experience</a>
+      <a href="#skills">Skills</a>
+      <a href="#resume">Resume</a>
+    </nav>
+    <div class="nav-r">
+      <button class="icon-btn" id="theme" type="button" aria-label="Switch theme">◐</button>
+      <a class="btn sm" href="#contact">Contact</a>
+    </div>
+  </div>
+</header>
+
+<main class="wrap" id="top">
+  <div class="hero">
+    <div>
+      <p class="eyebrow">AI/ML Engineer | GenAI, RAG &amp; Multimodal Systems</p>
+      <h1>I build GenAI systems that read financial documents.</h1>
+      <p class="lede">I build RAG and agentic systems for banking and financial services, where answers must be grounded and auditable. That covers retrieval, evaluation and deployment, on a backend base of FastAPI and Django.</p>
+      <div class="proof">
+        <div><strong>Used by banks</strong><span>Financial Document Intelligence platform for 4 banking clients.</span></div>
+        <div><strong>Measured, not assumed</strong><span>Evaluation harnesses with Precision@K, RAGAS and bootstrap confidence intervals.</span></div>
+        <div><strong>Retrieval depth</strong><span>ColPali, Qdrant, FAISS, BM25 and cross-encoder reranking.</span></div>
+      </div>
+      <div class="cta">
+        <a class="btn" href="#work">View Selected Work</a>
+        <a class="btn ghost" href="#resume">Read Resume</a>
+      </div>
+    </div>
+    <aside class="now" aria-label="Latest build">
+      <div class="now-top">
+        <p class="eyebrow">Building now | Sep 2026</p>
+        <h3>AML Case Investigation Agent</h3>
+        <p>Transaction monitoring with a graph neural network, plus an agent that investigates flagged cases using retrieved evidence.</p>
+        <div class="pipeline"><span class="chip">GraphSAGE</span><span class="chip">LangGraph</span><span class="chip">Qdrant</span><span class="chip">FastAPI</span><span class="chip">React</span></div>
+      </div>
+      <div class="stat"><b>1.87M</b><span>transactions across 175,888 accounts in the graph the GNN trains on</span></div>
+    </aside>
+  </div>
+
+  <section id="work">
+    <div class="sec-h">
+      <p class="eyebrow">Selected work</p>
+      <h2>Projects I have built</h2>
+      <p>Finance, compliance and healthcare, with an evaluation behind each one.</p>
+    </div>
+    <div class="work">
+      <article class="card">
+        <div>
+          <p class="eyebrow">Graph ML + agents <span class="badge">IN PROGRESS</span></p>
+          <h3>AML Transaction Monitoring and Case Investigation Agent</h3>
+          <p class="tag">Sep 2026 – present. Built from scratch on the SAML-D dataset.</p>
+          <div class="stack"><span>PyTorch Geometric</span><span>XGBoost</span><span>LangGraph</span><span>Qdrant</span><span>RAGAS</span><span>FastAPI</span><span>React</span></div>
+          <a class="ext" href="https://github.com/VivekMane57/aml-case-agent" target="_blank" rel="noopener">View repository →</a>
+        </div>
+        <div>
+          <p class="lab">The problem</p>
+          <p class="prob">Bank investigators get a flood of transaction alerts and have to read each case by hand to decide what is real laundering.</p>
+          <p class="lab">How I am solving it</p>
+          <ul>
+            <li>An account graph of 175,888 nodes and 1,869,565 edges, with a chronological 70/15/15 split and leakage-safe features such as 7-day and 30-day velocity.</li>
+            <li>A rule engine for structuring, velocity, amount anomaly and fan patterns. Structuring is strongest, at 10.1x lift on the test split.</li>
+            <li>An XGBoost baseline and a GraphSAGE edge classifier. The baseline scores near-perfect (ROC-AUC 0.996), which matches published SAML-D results, so I documented dataset separability as a limitation.</li>
+            <li>Next: the LangGraph investigation agent, retrieval over evidence, and the React case dashboard.</li>
+          </ul>
+        </div>
+      </article>
+      <article class="card">
+        <div>
+          <p class="eyebrow">Compliance SaaS</p>
+          <h3>GST-AUDIT-AI</h3>
+          <p class="tag">GST compliance tool for Indian chartered accountants. Production rollout in progress.</p>
+          <div class="stack"><span>Next.js</span><span>Node.js</span><span>FastAPI</span><span>Supabase</span><span>Celery</span><span>Redis</span><span>LangGraph</span><span>Azure OpenAI</span></div>
+          <a class="ext" href="https://github.com/VivekMane57/gst-audit-ai" target="_blank" rel="noopener">View repository →</a>
+        </div>
+        <div>
+          <p class="lab">The problem</p>
+          <p class="prob">Chartered accountants check GST compliance by hand across suppliers, tax rates and legal sections, which is slow and easy to get wrong.</p>
+          <p class="lab">How I solved it</p>
+          <ul>
+            <li>A full-stack product: Next.js dashboard, Node.js middleware, FastAPI services, Supabase, and Celery with Redis for background jobs.</li>
+            <li>An AI layer with supplier trust scoring (XGBoost and TreeSHAP), an HSN/SAC classifier on embeddings, anomaly detection for circular trading and fake ITC, and tax liability forecasting.</li>
+            <li>A statutory RAG assistant grounded in CGST Act sections, plus a LangGraph agent that chains tools. It passed an offline test on hallucination refusal and statutory grounding, and rejects fake sections such as Section 999.</li>
+            <li>Multilingual OCR, a database-driven compliance rule engine, and drift and latency monitoring.</li>
+          </ul>
+        </div>
+      </article>
+      <article class="card">
+        <div>
+          <p class="eyebrow">Enterprise RAG</p>
+          <h3>NexusAI Enterprise</h3>
+          <p class="tag">A RAG platform for enterprise knowledge, modelled on tools like Azure AI Foundry and Copilot Studio.</p>
+          <div class="stack"><span>FastAPI</span><span>PostgreSQL</span><span>Azure OpenAI</span><span>Next.js 16</span><span>React 19</span><span>TypeScript</span><span>Docker</span></div>
+          <a class="ext" href="https://github.com/VivekMane57/nexusai-enterprise" target="_blank" rel="noopener">View repository →</a>
+          <a class="ext demo" href="https://youtu.be/Q8uISGpWNO8" target="_blank" rel="noopener">▶ Watch demo</a>
+        </div>
+        <div>
+          <p class="lab">The problem</p>
+          <p class="prob">Companies want answers from their own documents, but a plain chatbot invents facts, ignores who is allowed to see what, and cannot show its sources.</p>
+          <p class="lab">How I solved it</p>
+          <ul>
+            <li>Hybrid retrieval that fuses dense vector and BM25 results with reciprocal rank fusion, then reranks with a cross-encoder and adds citations.</li>
+            <li>Multi-tenant organizations with Owner, Admin, Member and Viewer roles, knowledge bases, streaming grounded chat, and audit logs.</li>
+            <li>Five role-scoped agents (financial analyst, risk analyst, compliance reviewer, document researcher, executive summary), with guardrails and a built-in evaluation suite for faithfulness, groundedness and context precision.</li>
+          </ul>
+        </div>
+      </article>
+      <article class="card">
+        <div>
+          <p class="eyebrow">Healthcare platform</p>
+          <h3>RxDigit</h3>
+          <p class="tag">A digital prescription platform that connects patients and doctors, with pharmacies planned next.</p>
+          <div class="stack"><span>React Native</span><span>React</span><span>Node.js</span><span>TypeScript</span><span>Expo</span><span>MongoDB</span><span>JWT</span></div>
+          <a class="ext" href="https://github.com/VivekMane57/RxDigit" target="_blank" rel="noopener">View repository →</a>
+          <a class="ext demo" href="https://youtu.be/N5hn9ioow2k" target="_blank" rel="noopener">▶ Watch demo</a>
+        </div>
+        <div>
+          <p class="lab">The problem</p>
+          <p class="prob">Handwritten prescriptions are often illegible or lost, and nothing connects the patient, the doctor who approves them and the pharmacy that fills them.</p>
+          <p class="lab">How I solved it</p>
+          <ul>
+            <li>A patient app in React Native and Expo. Patients submit structured prescriptions to a doctor and follow the approval status.</li>
+            <li>A doctor web dashboard with a review queue, approve and reject with notes, and a notification bell for new submissions.</li>
+            <li>A Node.js, Express and TypeScript API on MongoDB with role-based JWT auth, an approval audit trail, and a health wallet model.</li>
+            <li>Next: the pharmacy dashboard, billing and payments, and connecting the PaddleOCR handwriting pipeline to the live flow.</li>
+          </ul>
+        </div>
+      </article>
+      <article class="card">
+        <div>
+          <p class="eyebrow">Multimodal RAG | Aug 2026</p>
+          <h3>VisionExtract</h3>
+          <p class="tag">Multimodal document intelligence platform.</p>
+          <div class="stack"><span>PyTorch</span><span>ColPali</span><span>Qdrant</span><span>Groq VLM</span><span>FastAPI</span><span>Docker</span></div>
+          <a class="ext" href="https://github.com/VivekMane57/visionextract" target="_blank" rel="noopener">View repository →</a>
+        </div>
+        <div>
+          <p class="lab">The problem</p>
+          <p class="prob">Financial PDFs hold tables and charts that OCR flattens or breaks, especially on blurry or rotated scans, and the answers built on top of it go wrong.</p>
+          <p class="lab">How I solved it</p>
+          <ul>
+            <li>A visual RAG pipeline that skips OCR. ColPali patch embeddings of PDF pages go into Qdrant, searched with native multi-vector MaxSim.</li>
+            <li>A vision-language answering layer over the retrieved page images, with a reproducible Precision@3 harness that compares it to a text-extraction baseline on clean and degraded documents.</li>
+            <li>On a real annual report, visual RAG matched the text baseline under degraded conditions (88.2% Precision@3). Text extraction stayed stronger on clean, digital-native PDFs.</li>
+          </ul>
+        </div>
+      </article>
+      <article class="card">
+        <div>
+          <p class="eyebrow">Financial copilot | Jun – Jul 2026</p>
+          <h3>FinSight AI</h3>
+          <p class="tag">Financial intelligence copilot on Azure.</p>
+          <div class="stack"><span>FastAPI</span><span>Streamlit</span><span>LangGraph</span><span>Azure OpenAI</span><span>FAISS</span><span>XGBoost</span></div>
+          <a class="ext" href="https://github.com/VivekMane57/finsight-ai" target="_blank" rel="noopener">View repository →</a>
+          <a class="ext demo" href="https://youtu.be/ynlGEQLjK-s" target="_blank" rel="noopener">▶ Watch demo</a>
+        </div>
+        <div>
+          <p class="lab">The problem</p>
+          <p class="prob">Analysts spend hours reading reports to pull out KPIs and judge credit risk, and an LLM alone gives answers that are hard to trust.</p>
+          <p class="lab">How I solved it</p>
+          <ul>
+            <li>A copilot on Azure Web App for document analysis, KPI extraction and credit evaluation.</li>
+            <li>A LangGraph multi-agent flow: Retrieval, Summary, Credit Risk, then Final Analyst, running on Azure OpenAI.</li>
+            <li>A fine-tuned Llama-3-8B (LoRA/QLoRA with TRL, PEFT and Unsloth) and an explainable XGBoost and SHAP credit-risk model, evaluated with RAGAS.</li>
+          </ul>
+        </div>
+      </article>
+      <article class="card">
+        <div>
+          <p class="eyebrow">Applied ML | Sep 2026</p>
+          <h3>Customer Churn Prediction</h3>
+          <p class="tag">Churn model and retention strategy for a telecom dataset.</p>
+          <div class="stack"><span>XGBoost</span><span>SHAP</span><span>Scikit-learn</span><span>Pandas</span></div>
+          <a class="ext" href="https://github.com/VivekMane57/Customer-Churn-Prediction" target="_blank" rel="noopener">View repository →</a>
+        </div>
+        <div>
+          <p class="lab">The problem</p>
+          <p class="prob">A telecom company loses revenue when customers leave, and needs to know who is likely to go and what to do about it.</p>
+          <p class="lab">How I solved it</p>
+          <ul>
+            <li>An end-to-end pipeline on 7,043 customers. Tuned XGBoost reached 0.8386 ROC-AUC, with a 95% bootstrap interval of 0.816 to 0.861.</li>
+            <li>An F2-score decision threshold that lifted churner recall from 80.5% to 89.6%.</li>
+            <li>SHAP analysis of the main churn drivers and three risk tiers, which put $679,646 of annual revenue in scope and $49,971 in the protectable tier.</li>
+          </ul>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="how">
+    <div class="sec-h">
+      <p class="eyebrow">Principles</p>
+      <h2>How I work</h2>
+      <p>Habits that show up in every project above.</p>
+    </div>
+    <div class="three">
+      <article><h3>Compare against a baseline</h3><p>A new retrieval method only counts if it beats a simple one on the same questions. VisionExtract tests against plain text extraction for that reason.</p></article>
+      <article><h3>Test on bad inputs</h3><p>Real documents are blurry, rotated and noisy. I score systems on degraded pages as well as clean ones.</p></article>
+      <article><h3>Explain the model</h3><p>For credit and churn work I use SHAP, so every score comes with the drivers behind it and a business reading of them.</p></article>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="sec-h">
+      <p class="eyebrow">Career</p>
+      <h2>Where I have worked</h2>
+    </div>
+    <div class="timeline">
+      <div class="role">
+        <div class="when">Jan – Mar 2026<br>Remote</div>
+        <div>
+          <h3>AI/ML Engineer Intern</h3>
+          <div class="org">AadiSwan Info Consultants Pvt. Ltd.</div>
+          <ul>
+            <li>Engineered a Financial Document Intelligence platform for 4 banking clients, using layout-aware parsing, FAISS vector search and LLM-based query understanding over multi-page financial records.</li>
+            <li>Designed an MSME Credit Risk Scorecard (XGBoost) to automate loan-risk classification, replacing manual underwriting review steps.</li>
+            <li>Built and deployed a Bank Early Warning System that consolidates GST and ERP data from multiple sources, cutting manual financial-analysis effort by 40%.</li>
+            <li>Built REST APIs and backend workflows in FastAPI and Django REST Framework to serve all of the above in production.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="role">
+        <div class="when">Jun – Oct 2025<br>Remote</div>
+        <div>
+          <h3>Data Science Intern</h3>
+          <div class="org">IIT Bombay, EdTech Internship (Track 1)</div>
+          <ul>
+            <li>Analyzed synchronized EEG, GSR and eye-tracking data from 38 students under IIT Bombay mentorship, on raw real-world data. A deep autoencoder in TensorFlow reached an MSE of 0.041, and PCA kept 95% of the variance.</li>
+            <li>Clustered learners with K-means and DBSCAN, validated with Silhouette and Davies-Bouldin scores. SHAP showed EEG Beta Power, GSR Slope and Pupil Dilation as the key predictors of two learning-behavior personas.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="role">
+        <div class="when">Jun – Sep 2025<br>Kolhapur</div>
+        <div>
+          <h3>Trainee Java Developer</h3>
+          <div class="org">Platominds Services Pvt. Ltd.</div>
+          <ul>
+            <li>Completed a 480-hour structured Java program under senior engineering mentorship, covering algorithm design, clean code practices and system integration.</li>
+            <li>Wrote and debugged production-style Java modules, integrated third-party components and wrote handoff documentation. These fundamentals now sit under my backend and AI work.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="edu">
+      <div><p class="eyebrow">Education | 2022 – Jun 2026</p><h4>B.Tech, Computer Science and Engineering</h4><p>D.Y. Patil College of Engineering, Kolhapur. CGPA 7.87.</p></div>
+      <div><p class="eyebrow">Certifications</p><h4>Oracle Cloud Infrastructure 2025</h4><p>Certified DevOps Professional. Certified Data Science Professional.</p></div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="sec-h">
+      <p class="eyebrow">Skills</p>
+      <h2>What I work with</h2>
+    </div>
+    <div class="skills">
+      <div class="skill"><h3>GenAI and RAG</h3><div class="stack"><span>RAG</span><span>Multimodal RAG</span><span>LangChain</span><span>LangGraph</span><span>Prompt Engineering</span><span>Embeddings</span><span>MCP</span><span>LLM Fine-Tuning</span><span>Agentic AI</span><span>Document Intelligence</span></div></div>
+      <div class="skill"><h3>Retrieval and vector search</h3><div class="stack"><span>FAISS</span><span>BM25</span><span>Qdrant</span><span>ColPali</span><span>Hybrid Retrieval</span><span>Cross-Encoder Reranking</span><span>MaxSim</span></div></div>
+      <div class="skill"><h3>Machine learning</h3><div class="stack"><span>PyTorch</span><span>TensorFlow</span><span>Hugging Face</span><span>PEFT</span><span>LoRA / QLoRA</span><span>TRL</span><span>XGBoost</span><span>SHAP</span><span>Scikit-learn</span><span>Pandas</span></div></div>
+      <div class="skill"><h3>Evaluation</h3><div class="stack"><span>RAGAS</span><span>LangSmith</span><span>LLM-as-Judge</span><span>Faithfulness</span><span>Groundedness</span><span>Precision@K</span></div></div>
+      <div class="skill"><h3>Backend and APIs</h3><div class="stack"><span>FastAPI</span><span>Django REST</span><span>Node.js</span><span>REST APIs</span><span>JWT</span><span>OAuth</span></div></div>
+      <div class="skill"><h3>Languages, data and cloud</h3><div class="stack"><span>Python</span><span>JavaScript</span><span>Java</span><span>C++</span><span>SQL</span><span>PostgreSQL</span><span>MongoDB</span><span>Docker</span><span>AWS</span><span>Azure</span><span>OCI</span><span>CI/CD</span></div></div>
+    </div>
+  </section>
+
+  <section id="resume">
+    <div class="sec-h">
+      <p class="eyebrow">Resume</p>
+      <h2>Plain-text resume</h2>
+      <p>Copy it into an application form.</p>
+    </div>
+    <div class="resume">
+      <div class="resume-top">
+        <span class="eyebrow">AI/ML Engineer | Pune, India</span>
+        <button class="btn sm" id="copy" type="button">Copy text</button>
+      </div>
+      <pre class="txt" id="resume-text">VIVEK MANE
+AI/ML Engineer - GenAI, RAG &amp; Multimodal Systems
++91 9731770292 | vivekmane.9731@gmail.com | Pune, India
+
+PROFESSIONAL SUMMARY
+AI/ML Engineer building Retrieval-Augmented Generation (RAG), multimodal, and GenAI systems end-to-end: retrieval, evaluation, and deployment. Experience with visual/vector retrieval (ColPali, Qdrant, FAISS, BM25), LLM fine-tuning (LoRA/QLoRA), and production deployment of financial AI platforms on Azure. Background in backend engineering (FastAPI, Django) and applied ML (XGBoost, SHAP).
+
+TECHNICAL SKILLS
+Languages: Python, JavaScript, Java, C++, SQL
+GenAI / RAG: RAG, Multimodal RAG, LangChain, LangGraph, Prompt Engineering, Embeddings, MCP, LLM Fine-Tuning
+Retrieval &amp; Vector Search: FAISS, BM25, Qdrant, ColPali, Vector Databases, Hybrid Retrieval, Cross-Encoder Reranking, Late-Interaction (MaxSim) Search
+Machine Learning: Deep Learning, NLP, Computer Vision, Hugging Face Transformers, PEFT, LoRA, QLoRA, TRL, SFTTrainer, PyTorch, TensorFlow, Scikit-learn, XGBoost, SHAP, Pandas, Exploratory Data Analysis, Statistical Modeling, PCA, Clustering (K-Means/DBSCAN)
+Evaluation &amp; Observability: RAGAS, LangSmith, LLM-as-Judge, Faithfulness Scoring, Groundedness, Precision@K Evaluation
+Backend &amp; APIs: FastAPI, Django REST Framework, Node.js, REST APIs, JWT Authentication, OAuth
+Data &amp; Cloud: PostgreSQL, MongoDB, MySQL, Docker, CI/CD, AWS, Azure, OCI, Git, GitHub
+
+PROJECTS
+VisionExtract - Multimodal Document Intelligence Platform (Aug 2026)
+PyTorch, ColPali, Qdrant, Groq VLM, FastAPI, Docker
+- Architected a multimodal visual RAG pipeline that bypasses OCR entirely, converting financial PDF pages directly into images and indexing ColPali visual patch embeddings into Qdrant using native multi-vector MaxSim (late-interaction) search.
+- Built a vision-language-model (VLM) question-answering layer over retrieved page images and a reproducible Precision@3 evaluation harness benchmarking visual retrieval against a text-extraction baseline across clean and degraded (blur/noise/rotation) documents.
+- Ran a controlled 17-question evaluation on a real financial annual report, showing visual RAG matched the text-extraction baseline under degraded/OCR-hostile conditions (88.2% Precision@3) while identifying that conventional extraction remains stronger on clean, digitally-native PDFs.
+
+Customer Churn Prediction &amp; Retention Strategy (Sep 2026)
+XGBoost, SHAP, Scikit-learn, Pandas
+- Implemented an end-to-end churn prediction pipeline on a 7,043-customer telecom dataset; tuned XGBoost (RandomizedSearchCV, 5-fold stratified cross-validation) achieved 0.8386 ROC-AUC with a 95% bootstrap confidence interval of [0.816, 0.861].
+- Optimized the decision threshold using an F2-score to align with business cost asymmetry, improving churner recall from 80.5% to 89.6% with an acceptable precision trade-off.
+- Applied SHAP analysis to identify and validate top churn drivers (contract type, tenure, fiber-optic service), cross-confirming exploratory data analysis findings and translating them into actionable retention priorities.
+- Segmented customers into 3 risk tiers by predicted churn probability, identifying $679,646 in annual addressable revenue and $49,971 in protectable revenue via a targeted retention strategy.
+
+FinSight AI - Financial Intelligence Copilot (Jun - Jul 2026)
+FastAPI, LangGraph, Azure OpenAI, FAISS, XGBoost, Docker
+- Deployed a financial copilot on Azure Web App (FastAPI, Streamlit) for document analysis, KPI extraction, and credit evaluation, orchestrating a LangGraph multi-agent workflow (Retrieval -> Summary -> Credit Risk -> Final Analyst) via Azure OpenAI.
+- Fine-tuned Llama-3-8B (Transformers, TRL, PEFT, LoRA/QLoRA, Unsloth) for domain adaptation; built an explainable XGBoost/SHAP credit-risk model with RAGAS-based LLM evaluation.
+
+WORK EXPERIENCE
+AI/ML Engineer Intern, AadiSwan Info Consultants Pvt. Ltd. (Remote), Jan 2026 - Mar 2026
+- Engineered a Financial Document Intelligence platform for 4 banking clients, using embedding-based semantic search over financial documents to power AI-assisted search and analysis.
+- Developed an MSME Credit Risk Assessment model to automate risk scoring for small-business lending decisions.
+- Designed and deployed a Bank Early Warning System (a major client engagement) that consolidated financial and GST data from multiple ERP sources, cutting manual financial-analysis effort by 40%.
+
+Data Science Intern, IIT Bombay - EdTech Internship (Track 1) (Remote), Jun 2025 - Oct 2025
+- Analyzed synchronized multimodal sensor data (EEG, GSR, eye-tracking) from 38 students; trained a Deep Autoencoder (TensorFlow, MSE 0.041) and applied PCA (95% variance retained) for dimensionality reduction.
+- Performed K-Means/DBSCAN clustering (validated via Silhouette Score, Davies-Bouldin Index) and SHAP analysis to classify two learning-behavior personas and identify EEG Beta Power, GSR Slope, and Pupil Dilation as key predictors.
+
+EDUCATION
+D.Y. Patil College of Engineering, Kolhapur - B.Tech, Computer Science and Engineering, 2022 - Jun 2026. CGPA: 7.87
+
+CERTIFICATIONS
+Oracle Cloud Infrastructure 2025 Certified DevOps Professional
+Oracle Cloud Infrastructure 2025 Certified Data Science Professional</pre>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <div>
+      <h4>Vivek Mane</h4>
+      <p>AI/ML engineer in Pune. Open to full-time roles as a Generative AI Engineer, AI/ML Engineer or Python Backend Engineer.</p>
+    </div>
+    <div>
+      <p class="eyebrow">Links</p>
+      <ul>
+        <li><a href="https://www.linkedin.com/in/vivek-mane-ai" target="_blank" rel="noopener">LinkedIn</a></li>
+        <li><a href="https://github.com/VivekMane57" target="_blank" rel="noopener">GitHub</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="eyebrow">Contact</p>
+      <ul>
+        <li class="copyrow"><code>vivekmane.9731@gmail.com</code><button class="mini" type="button" data-copy="vivekmane.9731@gmail.com">Copy</button></li>
+        <li class="copyrow"><code>+91 9731770292</code><button class="mini" type="button" data-copy="+91 9731770292">Copy</button></li>
+      </ul>
+    </div>
+    <p class="fine">© 2026 Vivek Mane.</p>
+  </footer>
+</main>
+
+<script>
+(function(){
+  var root=document.documentElement;
+  document.getElementById('theme').addEventListener('click',function(){
+    var cur=root.getAttribute('data-theme');
+    var dark=cur==='dark'||(!cur&&window.matchMedia('(prefers-color-scheme: dark)').matches);
+    root.setAttribute('data-theme',dark?'light':'dark');
+  });
+  function selectNode(n){
+    var r=document.createRange();r.selectNodeContents(n);
+    var s=window.getSelection();s.removeAllRanges();s.addRange(r);
+  }
+  function copyText(text,btn,node,label){
+    var reset=function(){setTimeout(function(){btn.textContent=label},1800)};
+    var fallback=function(){selectNode(node);btn.textContent='Selected, press Ctrl+C';reset()};
+    try{navigator.clipboard.writeText(text).then(function(){btn.textContent='Copied';reset()},fallback)}catch(e){fallback()}
+  }
+  var big=document.getElementById('copy'),txt=document.getElementById('resume-text');
+  big.addEventListener('click',function(){copyText(txt.textContent,big,txt,'Copy text')});
+  document.querySelectorAll('[data-copy]').forEach(function(b){
+    b.addEventListener('click',function(){copyText(b.getAttribute('data-copy'),b,b.previousElementSibling,'Copy')});
+  });
+})();
+</script>
+</body>
+</html>
