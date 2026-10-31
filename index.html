@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -72,6 +71,8 @@ header.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;backgroun
 .stat{display:flex;align-items:baseline;gap:12px;padding:20px 22px}
 .stat b{font-family:var(--display);font-size:40px;line-height:1;color:var(--fg);font-variant-numeric:tabular-nums}
 .stat span{color:var(--muted);font-size:14px;line-height:1.4}
+.next{padding:18px 22px;border-top:1px solid var(--line);font-size:14px;line-height:1.5;color:var(--muted)}
+.next b{color:var(--fg);font-weight:600}
 
 /* sections */
 section{padding-block:72px;border-top:1px solid var(--line)}
@@ -192,12 +193,14 @@ body{margin:0}
     </div>
     <aside class="now" aria-label="Latest build">
       <div class="now-top">
-        <p class="eyebrow">Building now | Sep 2026</p>
+        <p class="eyebrow">Latest build | Oct 2026</p>
         <h3>AML Case Investigation Agent</h3>
-        <p>Transaction monitoring with a graph neural network, plus an agent that investigates flagged cases using retrieved evidence.</p>
-        <div class="pipeline"><span class="chip">GraphSAGE</span><span class="chip">LangGraph</span><span class="chip">Qdrant</span><span class="chip">FastAPI</span><span class="chip">React</span></div>
+        <p>Transaction monitoring with rules, XGBoost and a graph neural network, plus an agent that writes cited case summaries and checks them before an analyst sees them.</p>
+        <div class="pipeline"><span class="chip">GraphSAGE</span><span class="chip">XGBoost</span><span class="chip">LangGraph</span><span class="chip">RAGAS</span><span class="chip">React</span></div>
       </div>
       <div class="stat"><b>1.87M</b><span>transactions across 175,888 accounts in the graph the GNN trains on</span></div>
+      <div class="stat"><b>94.7%</b><span>of 377 agent summaries passed both the citation check and the faithfulness check</span></div>
+      <p class="next"><b>Starting next:</b> an AI loan processing assistant. Currently in the research phase: document extraction, credit policy retrieval and explainable credit scoring.</p>
     </aside>
   </div>
 
@@ -210,21 +213,24 @@ body{margin:0}
     <div class="work">
       <article class="card">
         <div>
-          <p class="eyebrow">Graph ML + agents <span class="badge">IN PROGRESS</span></p>
+          <p class="eyebrow">Graph ML + agents</p>
           <h3>AML Transaction Monitoring and Case Investigation Agent</h3>
-          <p class="tag">Sep 2026 – present. Built from scratch on the SAML-D dataset.</p>
-          <div class="stack"><span>PyTorch Geometric</span><span>XGBoost</span><span>LangGraph</span><span>Qdrant</span><span>RAGAS</span><span>FastAPI</span><span>React</span></div>
+          <p class="tag">Sep – Oct 2026. Built end to end on the SAML-D dataset.</p>
+          <div class="stack"><span>PyTorch Geometric</span><span>XGBoost</span><span>LangGraph</span><span>RAGAS</span><span>React</span><span>TypeScript</span><span>Tailwind</span></div>
           <a class="ext" href="https://github.com/VivekMane57/aml-case-agent" target="_blank" rel="noopener">View repository →</a>
+          <a class="ext demo" href="https://youtu.be/rLygvxY0cDY" target="_blank" rel="noopener">▶ Watch demo</a>
         </div>
         <div>
           <p class="lab">The problem</p>
-          <p class="prob">Bank investigators get a flood of transaction alerts and have to read each case by hand to decide what is real laundering.</p>
-          <p class="lab">How I am solving it</p>
+          <p class="prob">Bank investigators get a flood of transaction alerts and must read each case by hand and write it up. An AI summary could save that time, but only if every claim in it can be checked.</p>
+          <p class="lab">How I solved it</p>
           <ul>
-            <li>An account graph of 175,888 nodes and 1,869,565 edges, with a chronological 70/15/15 split and leakage-safe features such as 7-day and 30-day velocity.</li>
-            <li>A rule engine for structuring, velocity, amount anomaly and fan patterns. Structuring is strongest, at 10.1x lift on the test split.</li>
-            <li>An XGBoost baseline and a GraphSAGE edge classifier. The baseline scores near-perfect (ROC-AUC 0.996), which matches published SAML-D results, so I documented dataset separability as a limitation.</li>
-            <li>Next: the LangGraph investigation agent, retrieval over evidence, and the React case dashboard.</li>
+            <li>Split the data by time (70/15/15) and built features from past data only, on 1.87M transactions and 175,888 accounts, sampling by account so the transaction graph stays intact.</li>
+            <li>Detected suspicious activity three ways: a rule engine (structuring has 10.1x lift), XGBoost (test PR-AUC 0.887) and a GraphSAGE edge classifier. The velocity rule showed negative lift after three redesigns, so I removed it from the score and documented why.</li>
+            <li>Found that the first GNN memorised account IDs. Removing the ID embeddings raised its test PR-AUC from 0.613 to 0.756, and a fixed rank-blend with XGBoost lifted the final score to 0.924.</li>
+            <li>Built a LangGraph agent that turns 657 flagged cases into cited summaries. Each one passes a deterministic citation check and a RAGAS faithfulness check: 357 of 377 (94.7%) passed, and the rest are flagged instead of shipped.</li>
+            <li>Built a React analyst dashboard (alerts, case, evaluation). The agent only drafts; the analyst makes every decision.</li>
+            <li>Stated the limits openly: the dataset is synthetic and easy (XGBoost ROC-AUC 0.996 matches published SAML-D results), and the faithfulness check can miss small numeric errors.</li>
           </ul>
         </div>
       </article>
@@ -454,6 +460,12 @@ Backend &amp; APIs: FastAPI, Django REST Framework, Node.js, REST APIs, JWT Auth
 Data &amp; Cloud: PostgreSQL, MongoDB, MySQL, Docker, CI/CD, AWS, Azure, OCI, Git, GitHub
 
 PROJECTS
+AML Transaction Monitoring &amp; Case Investigation Agent (Sep - Oct 2026)
+PyTorch Geometric, XGBoost, LangGraph, RAGAS, React, TypeScript
+- Built an end-to-end AML prototype on the SAML-D dataset (1.87M transactions, 175,888 accounts): chronological split, leakage-safe features, a rule engine (structuring 10.1x lift), XGBoost (test PR-AUC 0.887) and a GraphSAGE edge classifier with temporal neighbour sampling.
+- Diagnosed account-ID memorisation in the GNN; removing ID embeddings raised its test PR-AUC from 0.613 to 0.756, and a fixed rank-blend with XGBoost raised the final score to 0.924. Removed a velocity rule that had negative lift and documented why.
+- Built a LangGraph agent that drafts cited case summaries for 657 flagged cases, gated by a deterministic citation check and a RAGAS faithfulness check (357 of 377 passed, 94.7%); failures are flagged for review. Built a React analyst dashboard where the analyst makes every decision.
+
 VisionExtract - Multimodal Document Intelligence Platform (Aug 2026)
 PyTorch, ColPali, Qdrant, Groq VLM, FastAPI, Docker
 - Architected a multimodal visual RAG pipeline that bypasses OCR entirely, converting financial PDF pages directly into images and indexing ColPali visual patch embeddings into Qdrant using native multi-vector MaxSim (late-interaction) search.
